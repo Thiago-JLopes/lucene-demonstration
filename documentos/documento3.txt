@@ -1,0 +1,3 @@
+Desenvolvedores Java utilizam o Lucene para criar sistemas de busca eficientes.
+A API do Lucene permite indexação rápida e consultas complexas.
+Muitas startups usam Elasticsearch, que é baseado no Lucene.

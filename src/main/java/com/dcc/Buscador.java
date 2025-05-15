@@ -15,43 +15,57 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Buscador {
     public static void main(String[] args) {
-        try {
-            // Diretório onde o índice está armazenado
-            Directory diretorio = FSDirectory.open(Paths.get("indice"));
+        String diretorioIndice = "indice";
 
-            // Leitor do índice
-            IndexReader leitor = DirectoryReader.open(diretorio);
+        try (Directory diretorio = FSDirectory.open(Paths.get(diretorioIndice));
+             IndexReader leitor = DirectoryReader.open(diretorio);
+             Scanner scanner = new Scanner(System.in)) {
 
-            // Searcher para realizar buscas
             IndexSearcher buscador = new IndexSearcher(leitor);
-
-            // Analisador padrão
             Analyzer analisador = new StandardAnalyzer();
-
-            // Parser da consulta
             QueryParser parser = new QueryParser("conteudo", analisador);
 
-            // Consulta
-            Query consulta = parser.parse("Lucene");
+            System.out.print("Digite :q para sair.");
 
-            // Executando a busca
-            TopDocs resultados = buscador.search(consulta, 10);
+            while (true) {
+                System.out.print("\n#############################################\nConsulta: ");
+                String entrada = scanner.nextLine();
 
-            System.out.println("Total de documentos encontrados: " + resultados.totalHits.value());
+                if (":q".equalsIgnoreCase(entrada)) {
+                    break;
+                }
 
-            // Obtendo os campos armazenados
-            StoredFields storedFields = leitor.storedFields();
+                try {
+                    Query consulta = parser.parse(entrada);
+                    TopDocs resultados = buscador.search(consulta, 10);
 
-            // resultados
-            for (ScoreDoc scoreDoc : resultados.scoreDocs) {
-                Document doc = storedFields.document(scoreDoc.doc);
-                System.out.println("Conteúdo: " + doc.get("conteudo"));
+                    System.out.println("\nTotal de documentos encontrados: " + resultados.totalHits.value());
+
+                    // Obter StoredFields uma vez para todas as recuperações
+                    StoredFields storedFields = leitor.storedFields();
+
+                    for (ScoreDoc scoreDoc : resultados.scoreDocs) {
+                        Document doc = storedFields.document(scoreDoc.doc);
+
+                        System.out.println("\nArquivo: " + doc.get("nome_arquivo"));
+                        System.out.println("Caminho: " + doc.get("caminho"));
+                        System.out.println("Score: " + scoreDoc.score);
+
+                        String conteudo = doc.get("conteudo");
+                        if (conteudo != null && !conteudo.isEmpty()) {
+                            System.out.println("Trecho relevante: " +
+                                    conteudo.substring(0, Math.min(100, conteudo.length())) + "...");
+                        }
+                    }
+                } catch (Exception e) {
+                    System.err.println("Erro na consulta: " + e.getMessage());
+                    e.printStackTrace();
+                }
             }
-
-            leitor.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
