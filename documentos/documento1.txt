@@ -1,3 +1,2 @@
-Apache Lucene é uma biblioteca de busca e indexação de alto desempenho.
-É amplamente utilizada em aplicações de busca empresarial e análise de dados.
-Desenvolvida em Java, mas possui ports para outras linguagens.
+Apache Lucene is a high-performance search and indexing library. It is widely used in enterprise search applications and data analysis.
+Developed in Java, but it has ports for other languages.

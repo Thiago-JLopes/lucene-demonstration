@@ -1,0 +1,59 @@
+BEST SEARCH AND RETRIEVAL PERFORMANCE
+EVALUATION WITH LUCENE INDEXING
+Sonam Baban Borhade, Prof. Pankaj Agarkar
+Department of Computer Engineering
+Dr. D.Y.Patil School of Engineering,Lohegaon
+Pune, Maharashtra, India.
+borhade.sonam@gmail.com , pmagarkar@gmail.com
+Abstract: Transaction processing in organizations commonly use relational database, but
+big part of database operations need select operation. As data increases with few gigabytes
+selection operation required more time to process whole transaction. There is one approach
+get frequently used to build indexes in database on columns which is selection. If number of
+table's (which is general case)get used then selection takes more time. Another approach
+we can use which is searching framework for searching records. Apache Lucene is a high
+performance full featured text search engine library written entirely in java which allows
+simultaneous update and searching. In this paper, we are using these capabilities of Lucene
+to improve performance of data retrieval. We are using Lucene indexing types to reduce load
+on database for selection operations. So leveraging advantages of Lucene search for our
+need, we propose and implement search history module in Lucene as a plugin so that it can
+be added at any stage in search framework. So that the search history maintenance for each
+user will be easy as well as can give good performance for large number of users. This
+paper surveys Lucene indexing and searching.
+Keywords: Information Search, Information Retrieval, Performance Evaluation, Indexing.
+1. INTRODUCTION
+1.1 Lucene Technology
+Lucene is NOT a crawler, not an application, and mainly not a library to do Google
+PageRank and other link analysis algorithms. Lucene is actually a library which gives text
+based search. A Lucene Index is a collection of Documents, A Document is a collection of
+Fields, A Field is content along with metadata describing the content. Field can have several
+attributes:
+1. Tokenized - Analyze the content, extracting tokens and adding them to the inverted
+index
+2. Stored - Keep the content in a storage data structure for use by application
+However, as confirmation of Lucene’s popularity, there are numerous projects that integrate
+with or build on Lucene, and that could be a good fit for your application. let see concept of
+searching and indexing in detail.
+1.1.1. Lucene architecture Component
+Lucene s primary goal is to facilitate information retrieval. The emphasis on retrieval is
+important. Indexing and searching steps have to be supplemented with parsing and analysis
+in order to achieve the best search results. The whole process of information retrieval can be
+divided into several sequential steps. Lucene act as component for search application it
+does not provide all functionality of searching. Lucene mainly focus on indexing, searching
+and analysis. Figure below shows all architectural components of lucene required for
+searching which will discussed in reminder sections.
+1.2. Indexing
+Process of preparing and adding text to Lucene and Optimized for searching. Key Point of
+Lucene is Lucene only indexes Strings but it not means that Lucene have not care about
+XML, Word, PDF, etc. There are available  good open source extractors available and  It’s
+our job to convert it in file format  which we want. Indexing factors as below:
+ Lucene indexes Documents into memory
+ On certain occasions, memory is flushed to the index representation (called a
+segment)
+ Segments are periodically merged
+ Internal Lucene models are changing and (drastically) improving performance
+1.2.1. Indexing process
+As discussed in previous section there are, to index a document few methods of Lucene’s
+public API necessary. And as a result, indexing with Lucene looks like a spuriously simple
+and intractable operation from the outside,. But this simple API actually relay on quite
+different and comparatively complex operations. All those operations get break down into
+three major and operatively discrete groups, which is depicted in following figure 1.1

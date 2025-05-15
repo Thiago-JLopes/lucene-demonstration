@@ -1,7 +1,6 @@
 package com.dcc;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -26,13 +25,11 @@ public class Buscador {
              Scanner scanner = new Scanner(System.in)) {
 
             IndexSearcher buscador = new IndexSearcher(leitor);
-            Analyzer analisador = new StandardAnalyzer();
+            Analyzer analisador = new EnglishAnalyzerWithStemming();
             QueryParser parser = new QueryParser("conteudo", analisador);
 
-            System.out.print("Digite :q para sair.");
-
             while (true) {
-                System.out.print("\n#############################################\nConsulta: ");
+                System.out.print("\n######################################################################################\nDigite :q para sair.\nConsulta: ");
                 String entrada = scanner.nextLine();
 
                 if (":q".equalsIgnoreCase(entrada)) {
@@ -42,7 +39,7 @@ public class Buscador {
                 try {
                     Query consulta = parser.parse(entrada);
                     TopDocs resultados = buscador.search(consulta, 10);
-
+                    System.out.println("Query interpretada: " + consulta.toString());
                     System.out.println("\nTotal de documentos encontrados: " + resultados.totalHits.value());
 
                     // Obter StoredFields uma vez para todas as recuperações

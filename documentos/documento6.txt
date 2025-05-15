@@ -1,0 +1,35 @@
+ Thedialogue above is from ELIZA,anearlynatural language processing system
+ chatbots
+ text
+ normalization
+ tokenization
+ that could carry on a limited conversation with a user by imitating the responses of
+ a Rogerian psychotherapist (Weizenbaum, 1966). ELIZA is a surprisingly simple
+ programthat uses pattern matching to recognize phrases like “I need X” and translate
+ them into suitable outputs like “What would it mean to you if you got X?”. This
+ simple technique succeeds in this domain because ELIZA doesn’t actually need to
+ know anything to mimic a Rogerian psychotherapist. As Weizenbaum notes, this is
+ one of the few dialogue genres where listeners can act as if they know nothing of the
+ world. ELIZA’s mimicry of human conversation was remarkably successful: many
+ people who interacted with ELIZA came to believe that it really understood them
+ and their problems, many continued to believe in ELIZA’s abilities even after the
+ program’s operation was explained to them (Weizenbaum, 1976), and even today
+ such chatbots are a fun diversion.
+ Of course modern conversational agents are much more than a diversion; they
+ can answer questions, book flights, or find restaurants, functions for which they rely
+ on a much more sophisticated understanding of the user’s intent, as we will see in
+ Chapter 15. Nonetheless, the simple pattern-based methods that powered ELIZA
+ and other chatbots play a crucial role in natural language processing.
+ We’ll begin with the most important tool for describing text patterns: the regular
+ expression. Regular expressions can be used to specify strings we might want to
+ extract from a document, from transforming “I need X” in ELIZA above, to defining
+ strings like $199 or $24.99 for extracting tables of prices from a document.
+ We’ll then turn to a set of tasks collectively called text normalization, in which
+ regular expressions play an important part. Normalizing text means converting it
+ to a more convenient, standard form. For example, most of what we are going to
+ do with language relies on first separating out or tokenizing words or word parts
+ from running text, the task of tokenization. English words are often separated from
+ each other by whitespace, but whitespace is not always sufficient. New York and
+ rock ’n’ roll are sometimes treated as large words despite the fact that they contain
+ spaces, while sometimes we’ll need to separate I’m into the two words I and am.
+ For processing tweets or texts we’ll need to tokenize emoticons like :) or hashtags
